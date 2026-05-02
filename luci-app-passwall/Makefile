@@ -1,10 +1,10 @@
-# Copyright (C) 2018-2020 L-WRT Team
-# Copyright (C) 2021-2025 xiaorouji
-# Copyright (C) 2026 Openwrt-Passwall Organization
+# 版权所有 (C) 2018-2020 L-WRT 团队
+# 版权所有 (C) 2021-2025 小楼吉
+# 版权所有 (C) 2026 Openwrt-Passwall 组织
 #
-# This is free software, licensed under the GNU General Public License v3.
+# 这是一个自由软件，根据GNU通用公共许可证v3授权。
 
-include $(TOPDIR)/rules.mk
+包含 $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-passwall
 PKG_VERSION:=26.4.15
@@ -12,59 +12,59 @@ PKG_RELEASE:=1
 PKG_PO_VERSION:=$(PKG_VERSION)
 
 PKG_CONFIG_DEPENDS:= \
-	CONFIG_PACKAGE_$(PKG_NAME)_Iptables_Transparent_Proxy \
-	CONFIG_PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Geoview \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Rust_Client \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Rust_Server \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Server \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadow_TLS \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_Obfs \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_SingBox \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan_Plus \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_tuic_client \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Geodata \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Plugin \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray \
+	CONFIG_PACKAGE_$(PKG_NAME)_Iptables_透明代理
+	CONFIG_PACKAGE_$(PKG_NAME)_Nftables_透明代理
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Geoview
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Rust_Client
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Rust_Server
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Server
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadow_TLS
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_Obfs
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_SingBox
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan_Plus
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_tuic_client
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Geodata
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Plugin
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray_Plugin
 
-LUCI_TITLE:=LuCI support for PassWall
-LUCI_PKGARCH:=all
+LuCI_TITLE:=LuCI对PassWall的支持
+LUCI_PKGARCH:=全部
 LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
-	+chinadns-ng +dns2socks +dnsmasq-full +ip-full \
-	+libuci-lua +lua +luci-compat +luci-lib-jsonc \
+	+chinadns-ng +dns2socks +dnsmasq-full +ip-full
+	+libuci-lua +lua +luci-compat +luci-lib-jsonc
 	+microsocks +resolveip +tcping
 
-define Package/$(PKG_NAME)/config
-menu "Configuration"
-	depends on PACKAGE_$(PKG_NAME)
+定义Package/$(PKG_NAME)/config
+菜单 "配置"
+	取决于PACKAGE_$(PKG_NAME)
 
-config PACKAGE_$(PKG_NAME)_Iptables_Transparent_Proxy
-	bool "Iptables Transparent Proxy"
-	select PACKAGE_ipset
-	select PACKAGE_ipt2socks
-	select PACKAGE_iptables
-	select PACKAGE_iptables-zz-legacy
-	select PACKAGE_iptables-mod-conntrack-extra
-	select PACKAGE_iptables-mod-iprange
-	select PACKAGE_iptables-mod-socket
-	select PACKAGE_iptables-mod-tproxy
-	select PACKAGE_kmod-ipt-nat
-	default y if ! PACKAGE_firewall4
+配置 PACKAGE_$(PKG_NAME)_Iptables_透明代理
+	bool "Iptables 透明代理"
+	选择PACKAGE_ipset
+	选择 PACKAGE_ipt2socks
+	选择 PACKAGE_iptables
+	选择 PACKAGE_iptables-zz-legacy
+	选择 PACKAGE_iptables-mod-conntrack-extra
+	选择 PACKAGE_iptables-mod-iprange
+	选择 PACKAGE_iptables-mod-socket
+	选择 PACKAGE_iptables-mod-tproxy
+	选择 PACKAGE_kmod-ipt-nat
+	默认 y 如果 ! PACKAGE_firewall4
 
-config PACKAGE_$(PKG_NAME)_Nftables_Transparent_Proxy
-	bool "Nftables Transparent Proxy"
-	select PACKAGE_ipt2socks
-	select PACKAGE_nftables
-	select PACKAGE_kmod-nft-socket
-	select PACKAGE_kmod-nft-tproxy
-	select PACKAGE_kmod-nft-nat
+配置 PACKAGE_$(PKG_NAME)_Nftables_透明代理
+	bool "Nftables 透明代理"
+	选择 PACKAGE_ipt2socks
+	选择PACKAGE_nftables
+	选择 PACKAGE_kmod-nft-socket
+	选择 PACKAGE_kmod-nft-tproxy
+	选择 PACKAGE_kmod-nft-nat
 	default y if PACKAGE_firewall4
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Geoview
